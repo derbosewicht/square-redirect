@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script>
+      // Extract query params from URL
+      const params = new URLSearchParams(window.location.search);
+      const code = params.get("code");
+      const state = params.get("state");
+
+      // Redirect to your app using repliq:// scheme
+      if (code && state) {
+        window.location.href = `repliq://square-auth?code=${encodeURIComponent(code)}&state=${encodeURIComponent(state)}`;
+      } else {
+        document.body.innerText = "Missing parameters. Redirect failed.";
+      }
+    </script>
+  </head>
+  <body>
+    Redirecting to app...
+  </body>
+</html>
