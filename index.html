@@ -1,21 +1,25 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <script>
-      // Extract query params from URL
-      const params = new URLSearchParams(window.location.search);
-      const code = params.get("code");
-      const state = params.get("state");
-
-      // Redirect to your app using repliq:// scheme
-      if (code && state) {
-        window.location.href = `repliq://square-auth?code=${encodeURIComponent(code)}&state=${encodeURIComponent(state)}`;
-      } else {
-        document.body.innerText = "Missing parameters. Redirect failed.";
-      }
+        // Extract query params from URL
+        const params = new URLSearchParams(window.location.search);
+        const code = params.get("code");
+        const state = params.get("state");
+        
+        // Redirect to your app - only code is required, state is optional
+        if (code) {
+            let redirectUrl = `repliq://square-auth?code=${encodeURIComponent(code)}`;
+            if (state) {
+                redirectUrl += `&state=${encodeURIComponent(state)}`;
+            }
+            window.location.href = redirectUrl;
+        } else {
+            document.body.innerText = "Missing authorization code. Redirect failed.";
+        }
     </script>
-  </head>
-  <body>
+</head>
+<body>
     Redirecting to app...
-  </body>
+</body>
 </html>
